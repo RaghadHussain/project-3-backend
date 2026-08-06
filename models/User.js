@@ -13,6 +13,22 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true
     },
+    bio:{
+      type: String,
+      trim: true,
+      maxlength: 250,
+    },
+    profileImage:{
+      type: String,
+    },
+    followers:{
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: 'User'
+    },
+    followings:{
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: 'User'
+    }
   },
   { timestamps: true },
 );
