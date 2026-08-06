@@ -16,10 +16,10 @@ const userSchema = new mongoose.Schema(
     bio:{
       type: String,
       trim: true,
-      maxlength: 250,
+      maxlength: 250
     },
     profileImage:{
-      type: String,
+      type: String
     },
     followers:{
       type: [mongoose.Schema.Types.ObjectId],
