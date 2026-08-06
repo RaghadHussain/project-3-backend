@@ -1,14 +1,13 @@
 const mongoose = require("mongoose");
-const CommentSchema = new mongoose.Schema(
+
+const replayToSchema = new mongoose.Schema(
   {
     post: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
       ref: "Post",
     },
     sender: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
       ref: "User",
     },
     message: {
@@ -18,10 +17,28 @@ const CommentSchema = new mongoose.Schema(
       minlength: 1,
       maxlength: 500,
     },
-    replyTo: {
+  },
+  { timestamps: true },
+);
+
+const CommentSchema = new mongoose.Schema(
+  {
+    post: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Post",
+    },
+    sender: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
+    message: {
+      type: String,
+      required: true,
+      trim: true,
+      minlength: 1,
+      maxlength: 500,
+    },
+    replyTo: [replayToSchema],
   },
   { timestamps: true },
 );
