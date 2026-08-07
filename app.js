@@ -9,6 +9,7 @@ const cors = require("cors");
 const authRoutes = require("./routes/auth.routes");
 const postRoutes = require("./routes/post.routes");
 const commentRoutes = require("./routes/comment.routes");
+const notificationRoutes = require("./routes/notification.routes");
 
 // Middleware
 app.use(
@@ -23,5 +24,6 @@ app.use(morgan("dev"));
 app.use("/auth", authRoutes);
 app.use("/post", postRoutes);
 app.use("/comment", commentRoutes);
+app.use("/notification", notificationRoutes);
 
 module.exports = app;
