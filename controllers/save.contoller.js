@@ -15,7 +15,7 @@ async function saveNewPost(req, res) {
 
 async function getSavedPosts(req, res) {
     try {
-        const savedPosts = await Save.find({ user: req.user._id })
+        const savedPosts = await Save.find({ user: req.user._id }).populate('user post').sort({ createdAt: -1 })
         res.status(200).json(savedPosts)
     } catch (e) {
         res.status(500).json({ message: e.message })
@@ -24,7 +24,7 @@ async function getSavedPosts(req, res) {
 
 async function getSavedPostById(req, res){
     try {
-        const savedPost = await Save.findOne({ _id: req.params.id, user: req.user._id })
+        const savedPost = await Save.findById(req.params.id)
 
         if (!savedPost) {
             return res.status(404).json({ message: "Saved Post Not Found" })
@@ -38,7 +38,7 @@ async function getSavedPostById(req, res){
 
 async function deletePostFromSaved(req, res) {
     try {
-        const deletedSavedPost = await Save.findOneAndDelete({ _id: req.params.id, user: req.user._id })
+        const deletedSavedPost = await Save.findByIdAndDelete(req.params.id)
 
         if (!deletedSavedPost) {
             return res.status(404).json({ message: "Saved Post Not Found" })
