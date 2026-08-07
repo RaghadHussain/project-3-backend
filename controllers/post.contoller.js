@@ -18,7 +18,7 @@ async function createNewPost(req, res) {
 
 async function getAllPosts(req, res) {
     try {
-        const allPosts = await Post.find()
+        const allPosts = await Post.find().populate('user').sort({ createdAt: -1 })
 
         res.status(200).json(allPosts)
     } catch (e) {
@@ -29,7 +29,7 @@ async function getAllPosts(req, res) {
 
 async function getPostById(req, res) {
     try {
-        const onePost = await Post.findById(req.params.id)
+        const onePost = await Post.findById(req.params.id).populate('user')
 
         if (!onePost) {
             return res.status(404).json({ message: "Post Not Found" })
@@ -43,9 +43,9 @@ async function getPostById(req, res) {
 
 async function getUserPosts(req, res) {
     try {
-        const userPosts = await Post.find({user: req.user._id})
+        const userPosts = await Post.find({user: req.user._id}).populate('user').sort({ createdAt: -1 })
 
-        if (!userPosts) {
+        if (userPosts.length === 0) {
             return res.status(404).json({ message: "No Posts Yet" })
         }
 

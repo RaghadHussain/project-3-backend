@@ -29,7 +29,7 @@ async function getAllComment(req, res) {
     const allComment = await Comment.find({ post: id })
       .populate("sender", "username")
       .populate("replyTo.sender", "username")
-      .sort({ createdAt: 1 });
+      .sort({ createdAt: -1 });
 
     res.status(200).json(allComment);
   } catch (e) {
