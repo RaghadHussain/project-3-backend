@@ -41,6 +41,20 @@ async function getPostById(req, res) {
     }
 }
 
+async function getUserPosts(req, res) {
+    try {
+        const userPosts = await Post.find({user: req.user._id})
+
+        if (!userPosts) {
+            return res.status(404).json({ message: "No Posts Yet" })
+        }
+
+        res.status(200).json(userPosts)
+    } catch (e) {
+        res.status(500).json({ message: e.message })
+    }
+}
+
 
 async function updatePostById(req, res) {
     try {
@@ -81,5 +95,6 @@ module.exports = {
     getAllPosts,
     getPostById,
     updatePostById,
-    deletePostById
+    deletePostById,
+    getUserPosts
 }
