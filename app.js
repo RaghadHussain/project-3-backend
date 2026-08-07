@@ -10,6 +10,8 @@ const authRoutes = require("./routes/auth.routes");
 const postRoutes = require("./routes/post.routes");
 const commentRoutes = require("./routes/comment.routes");
 const notificationRoutes = require("./routes/notification.routes");
+const saveRoutes = require("./routes/save.routes");
+
 
 // Middleware
 app.use(
@@ -25,5 +27,7 @@ app.use("/auth", authRoutes);
 app.use("/post", postRoutes);
 app.use("/comment", commentRoutes);
 app.use("/notification", notificationRoutes);
+app.use("/save", saveRoutes);
+
 
 module.exports = app;
