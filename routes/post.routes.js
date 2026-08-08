@@ -17,5 +17,9 @@ router.put('/:id', verifyToken, upload.single('image'), postControllr.updatePost
 
 router.delete('/:id', verifyToken, postControllr.deletePostById)
 
+router.post('/like/:id', verifyToken, postControllr.likePost)
+
+router.post('/:id/unlike', verifyToken, postControllr.unlikePost)
+
 
 module.exports = router;
