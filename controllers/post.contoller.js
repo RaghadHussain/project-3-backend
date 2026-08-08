@@ -2,11 +2,12 @@ const Post = require('../models/Post')
 
 async function createNewPost(req, res) {
     try {
-        const { caption, image, category } = req.body
+        const { title, caption, category } = req.body
+        const image = req.file ? `/uploads/${req.file.filename}` : undefined
 
         const createdPost = await Post.create({
             user: req.user._id,
-            caption, image, category
+            title, caption, image, category
         })
 
         res.status(201).json(createdPost)
@@ -58,10 +59,12 @@ async function getUserPosts(req, res) {
 
 async function updatePostById(req, res) {
     try {
-        const { caption, image, category } = req.body
+        const { title, caption, category } = req.body
+        const updateData = { title, caption, category }
+        if (req.file) updateData.image = `/uploads/${req.file.filename}`
 
         const updatedPost = await Post.findByIdAndUpdate(req.params.id,
-            { caption, image, category },
+            updateData,
             { new: true, runValidators: true })
 
         if (!updatedPost) {

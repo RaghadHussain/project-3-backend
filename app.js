@@ -4,6 +4,7 @@ const app = express(); // creates a express application
 const dotenv = require("dotenv").config(); //this allows me to use my .env values in this file
 const morgan = require("morgan");
 const cors = require("cors");
+const path = require("path");
 
 // Routes Import
 const authRoutes = require("./routes/auth.routes");
@@ -21,6 +22,7 @@ app.use(
 );
 app.use(express.json());
 app.use(morgan("dev"));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Routes
 app.use("/auth", authRoutes);
