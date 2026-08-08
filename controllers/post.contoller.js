@@ -79,6 +79,43 @@ async function updatePostById(req, res) {
 
 
 
+async function likePost(req, res) {
+    try {
+        const foundPost = await Post.findById(req.params.id)
+
+        if (!foundPost) {
+            return res.status(404).json({ message: "Post Not Found" })
+        }
+
+        foundPost.likes.push(req.user._id)
+        await foundPost.save()
+
+        res.status(200).json(foundPost)
+    } catch (e) {
+        res.status(500).json({ message: e.message })
+    }
+}
+
+
+async function unlikePost(req, res) {
+    try {
+        const foundPost = await Post.findById(req.params.id)
+
+        if (!foundPost) {
+            return res.status(404).json({ message: "Post Not Found" })
+        }
+
+        const allIdsButMyId = foundPost.likes.filter((oneId) => !oneId.equals(req.user._id))
+        foundPost.likes = allIdsButMyId
+        await foundPost.save()
+
+        res.status(200).json(foundPost)
+    } catch (e) {
+        res.status(500).json({ message: e.message })
+    }
+}
+
+
 async function deletePostById(req, res) {
     try {
         const deletedPost = await Post.findByIdAndDelete(req.params.id)
@@ -99,5 +136,7 @@ module.exports = {
     getPostById,
     updatePostById,
     deletePostById,
-    getUserPosts
+    getUserPosts,
+    likePost,
+    unlikePost
 }
