@@ -7,7 +7,7 @@ async function createNotification(req, res) {
     if (!reciver || !type || !post || !comment) {
       return res
         .status(400)
-        .json({ message: "reciver, type, post and comment are required." });
+        .json({ message: "reciver, type, post and comment are required" });
     }
 
     const createdNotification = await Notification.create({
