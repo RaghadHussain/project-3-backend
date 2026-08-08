@@ -5,6 +5,11 @@ const postSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
+    title:{
+        type: String,
+        trim: true,
+        maxlength: 20
+    },
     caption: {
         type: String,
         trim: true,
