@@ -110,10 +110,21 @@ async function verifyUser(req, res) {
   }
 }
 
+async function viewUser(req, res) {
+  try{
+    const userInfo = await User.findById(req.user._id)
+    res.status(200).json(userInfo)
+  }catch(e){
+    return res.status(500).json({
+      message: "Internal Server Error",
+    })
+  }
+}
 
 
 module.exports = {
   signUp,
   signIn,
   verifyUser,
+  viewUser
 };
