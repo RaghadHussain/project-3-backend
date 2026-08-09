@@ -8,4 +8,6 @@ router.post("/sign-in",  authController.signIn);
 
 router.get("/me", verifyToken, authController.verifyUser);
 
+router.get("/user", verifyToken, authController.viewUser);
+
 module.exports = router;
