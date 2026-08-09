@@ -1,4 +1,5 @@
 const Comment = require("../models/Comment");
+const Notification = require("../models/Notification");
 
 async function createComment(req, res) {
   try {
@@ -14,6 +15,14 @@ async function createComment(req, res) {
       post,
       sender: req.user._id,
       message,
+    });
+
+    createdComment.populate("post");
+    const createdNotification = await Notification.create({
+      reciver: comment.post.user,
+      type: "comment",
+      comment: comment._id,
+      sender: req.user._id,
     });
 
     res.status(201).json(createdComment);
