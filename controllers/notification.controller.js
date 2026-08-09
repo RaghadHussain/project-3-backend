@@ -15,6 +15,5 @@ async function getNotifications(req, res) {
 }
 
 module.exports = {
-  createNotification,
   getNotifications,
 };
