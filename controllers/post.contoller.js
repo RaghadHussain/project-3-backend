@@ -42,13 +42,9 @@ async function getPostById(req, res) {
     }
 }
 
-async function getUserPosts(req, res) {
+async function getPostsByUser(req, res) {
     try {
-        const userPosts = await Post.find({user: req.user._id}).populate('user').sort({ createdAt: -1 })
-
-        if (userPosts.length === 0) {
-            return res.status(404).json({ message: "No Posts Yet" })
-        }
+        const userPosts = await Post.find({user: req.params.id}).populate('user').sort({ createdAt: -1 })
 
         res.status(200).json(userPosts)
     } catch (e) {
@@ -136,7 +132,7 @@ module.exports = {
     getPostById,
     updatePostById,
     deletePostById,
-    getUserPosts,
+    getPostsByUser,
     likePost,
     unlikePost
 }

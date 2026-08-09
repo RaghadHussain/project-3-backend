@@ -110,14 +110,62 @@ async function verifyUser(req, res) {
   }
 }
 
-async function viewUser(req, res) {
-  try{
-    const userInfo = await User.findById(req.user._id)
+async function getUserById(req, res) {
+  try {
+    const userInfo = await User.findById(req.params.id)
+
+    if (!userInfo) {
+      return res.status(404).json({ message: "User Not Found" })
+    }
+
     res.status(200).json(userInfo)
-  }catch(e){
-    return res.status(500).json({
-      message: "Internal Server Error",
-    })
+  } catch (e) {
+    res.status(500).json({ message: "Internal Server Error" })
+  }
+}
+
+async function followUser(req, res) {
+  try {
+    const userToFollow = await User.findById(req.params.id)
+    const currentUser = await User.findById(req.user._id)
+
+    if (!userToFollow) {
+      return res.status(404).json({ message: "User Not Found" })
+    }
+
+    const alreadyFollowing = userToFollow.followers.some((oneId) => oneId.equals(req.user._id))
+
+    if (!alreadyFollowing) {
+      userToFollow.followers.push(req.user._id)
+      currentUser.followings.push(userToFollow._id)
+      await userToFollow.save()
+      await currentUser.save()
+    }
+
+    res.status(200).json(userToFollow)
+  } catch (e) {
+    res.status(500).json({ message: e.message })
+  }
+}
+
+async function unfollowUser(req, res) {
+  try {
+    const userToUnfollow = await User.findById(req.params.id)
+    const currentUser = await User.findById(req.user._id)
+
+    if (!userToUnfollow) {
+      return res.status(404).json({ message: "User Not Found" })
+    }
+
+    userToUnfollow.followers = userToUnfollow.followers.filter((oneId) => !oneId.equals(req.user._id))
+    currentUser.followings = currentUser.followings.filter((oneId) => !oneId.equals(userToUnfollow._id))
+
+    await userToUnfollow.save()
+    await currentUser.save()
+
+    res.status(200).json(userToUnfollow)
+  } catch (e) {
+    res.status(500).json({ message: e.message })
   }
 }
 
@@ -141,10 +189,15 @@ async function updateUserInfo(req, res) {
     }
 }
 
+
+
 module.exports = {
   signUp,
   signIn,
   verifyUser,
   viewUser,
+  getUserById,
+  followUser,
+  unfollowUser,
   updateUserInfo
 };
