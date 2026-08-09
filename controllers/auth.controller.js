@@ -121,10 +121,30 @@ async function viewUser(req, res) {
   }
 }
 
+async function updateUserInfo(req, res) {
+  try {
+        const { bio } = req.body
+        const updatedData = { bio }
+        if (req.file) updatedData.profileImage = `/uploads/${req.file.filename}`
+
+        const updatedInfo = await User.findByIdAndUpdate(req.user._id,
+            updatedData,
+            { new: true, runValidators: true })
+
+        if (!updatedInfo) {
+            return res.status(404).json({ message: "User Not Found" })
+        }
+
+        res.status(200).json(updatedInfo)
+    } catch (e) {
+        res.status(500).json({ message: e.message })
+    }
+}
 
 module.exports = {
   signUp,
   signIn,
   verifyUser,
-  viewUser
+  viewUser,
+  updateUserInfo
 };
