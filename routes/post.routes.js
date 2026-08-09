@@ -9,7 +9,7 @@ router.post('/', verifyToken, upload.single('image'), postControllr.createNewPos
 
 router.get('/', postControllr.getAllPosts)
 
-router.get('/userPosts', verifyToken, postControllr.getUserPosts)
+router.get('/user/:id', verifyToken, postControllr.getPostsByUser)
 
 router.get('/:id', postControllr.getPostById)
 
