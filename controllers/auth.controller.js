@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 async function signUp(req, res) {
   try {
-    const { username, password } = req.body;
+    const { username, password, profileImage, bio } = req.body;
 
     // Validation
     if (!username || !password) return res.status(400).json({message: "Username and password are required.",});
@@ -13,6 +13,8 @@ async function signUp(req, res) {
     const user = await User.create({
       username,
       hashedPassword: await bcrypt.hash(password, 12),
+      profileImage,
+      bio
     });
 
     const { _id, createdAt, updatedAt } = user;
@@ -107,6 +109,8 @@ async function verifyUser(req, res) {
     });
   }
 }
+
+
 
 module.exports = {
   signUp,
