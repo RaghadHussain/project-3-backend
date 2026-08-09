@@ -10,4 +10,6 @@ router.get("/me", verifyToken, authController.verifyUser);
 
 router.get("/user", verifyToken, authController.viewUser);
 
+router.post("/user/:id", verifyToken, authController.updateUserInfo);
+
 module.exports = router;
