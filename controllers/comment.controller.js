@@ -19,9 +19,9 @@ async function createComment(req, res) {
 
     createdComment.populate("post");
     const createdNotification = await Notification.create({
-      reciver: comment.post.user,
+      reciver: createdComment.post.user,
       type: "comment",
-      comment: comment._id,
+      comment: createdComment._id,
       sender: req.user._id,
     });
 
