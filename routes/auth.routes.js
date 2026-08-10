@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const verifyToken = require("../middleware/verifyToken");
 const validateObjectId = require("../middleware/validateObjectId");
+const upload = require("../middleware/upload");
 const authController = require('../controllers/auth.controller')
 
 router.post("/sign-up", authController.signUp );
@@ -11,7 +12,12 @@ router.get("/me", verifyToken, authController.verifyUser);
 
 router.get("/user/:id", verifyToken, validateObjectId, authController.getUserById);
 
-router.post("/user/:id", verifyToken, authController.updateUserInfo);
+router.put(
+  "/user/:id",
+  verifyToken,
+  upload.single("profileImage"),
+  authController.updateUserInfo,
+);
 
 router.post("/user/:id/follow", verifyToken, validateObjectId, authController.followUser);
 

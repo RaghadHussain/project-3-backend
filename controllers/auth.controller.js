@@ -84,6 +84,8 @@ async function signIn(req, res) {
       user: {
         _id: user._id,
         username: user.username,
+        profileImage: user.profileImage,
+        bio: user.bio,
       },
     });
   } catch (err) {
@@ -108,6 +110,8 @@ async function verifyUser(req, res) {
     return res.status(200).json({
       _id: user._id,
       username: user.username,
+      profileImage: user.profileImage,
+      bio: user.bio,
     });
   } catch (err) {
     console.error(err);
@@ -215,7 +219,6 @@ module.exports = {
   signUp,
   signIn,
   verifyUser,
-  viewUser,
   getUserById,
   followUser,
   unfollowUser,
