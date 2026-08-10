@@ -215,7 +215,6 @@ module.exports = {
   signUp,
   signIn,
   verifyUser,
-  viewUser,
   getUserById,
   followUser,
   unfollowUser,
