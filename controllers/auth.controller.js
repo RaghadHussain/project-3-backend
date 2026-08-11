@@ -124,7 +124,9 @@ async function verifyUser(req, res) {
 
 async function getUserById(req, res) {
   try {
-    const userInfo = await User.findById(req.params.id);
+    const userInfo = await User.findById(req.params.id)
+    .populate('followers', 'username profileImage')
+    .populate('followings', 'username profileImage');
 
     if (!userInfo) {
       return res.status(404).json({ message: "User Not Found" });
