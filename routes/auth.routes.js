@@ -4,7 +4,7 @@ const validateObjectId = require("../middleware/validateObjectId");
 const upload = require("../middleware/upload");
 const authController = require('../controllers/auth.controller')
 
-router.post("/sign-up", authController.signUp );
+router.post("/sign-up", upload.single("profileImage"), authController.signUp);
 
 router.post("/sign-in",  authController.signIn);
 

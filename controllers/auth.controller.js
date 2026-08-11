@@ -5,7 +5,7 @@ const Notification = require("../models/Notification");
 
 async function signUp(req, res) {
   try {
-    const { username, password, profileImage, bio } = req.body;
+    const { username, password, bio } = req.body;
 
     // Validation
     if (!username || !password)
@@ -20,7 +20,7 @@ async function signUp(req, res) {
     const user = await User.create({
       username,
       hashedPassword: await bcrypt.hash(password, 12),
-      profileImage,
+      profileImage: req.file ? `/uploads/${req.file.filename}` : undefined,
       bio,
     });
 
