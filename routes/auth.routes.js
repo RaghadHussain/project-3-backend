@@ -2,7 +2,7 @@ const router = require("express").Router();
 const verifyToken = require("../middleware/verifyToken");
 const validateObjectId = require("../middleware/validateObjectId");
 const upload = require("../middleware/upload");
-const authController = require('../controllers/auth.controller')
+const authController = require('../controllers/auth.controller');
 
 router.post("/sign-up", upload.single("profileImage"), authController.signUp);
 
@@ -22,5 +22,8 @@ router.put(
 router.post("/user/:id/follow", verifyToken, validateObjectId, authController.followUser);
 
 router.post("/user/:id/unfollow", verifyToken, validateObjectId, authController.unfollowUser);
+
+router.get('/search', authController.searchUsername)
+
 
 module.exports = router;

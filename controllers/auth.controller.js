@@ -215,6 +215,25 @@ async function updateUserInfo(req, res) {
   }
 }
 
+
+async function searchUsername(req, res) {
+  try {
+    const query = req.query.q
+
+    if (!query) {
+      return res.json([])
+    }
+
+    const filtredUsers = await User.find({
+      username: { $regex: query, $options: "i" },
+    })
+    res.status(200).json(filtredUsers)
+
+  }catch(e){
+    res.status(500).json({ message: e.message });
+  }
+}
+
 module.exports = {
   signUp,
   signIn,
@@ -223,4 +242,5 @@ module.exports = {
   followUser,
   unfollowUser,
   updateUserInfo,
+  searchUsername
 };
