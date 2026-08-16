@@ -241,10 +241,10 @@ Deployed Backend URL
 
 ## Team Members
 
-| Name | GitHub |  |
-| --- | --- | --- |
-| Raghad Husain | [Raghad Github Profile](https://github.com/RaghadHussain)| 
-| Zainab Ali Ammar | [Zainab Github Profile](https://github.com/zainabaliammarali-cloud) | 
+| Name | GitHub |  
+| --- | --- | 
+| Raghad Husain | [Raghad Github Profile](https://github.com/RaghadHussain)
+| Zainab Ali Ammar | [Zainab Github Profile](https://github.com/zainabaliammarali-cloud) 
 
 ## Credits
 
