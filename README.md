@@ -5,9 +5,9 @@
 This repository contains a RESTful API for a BEELIE it is a blog dedicated only for girls. 
 
 ## Related Links
-Backend API: Deployed Backend URL
-Frontend Application: Deployed Frontend URL
-Frontend Repository: https://github.com/RaghadHussain/project-3-frontend
+Backend API: [Deployed Backend URL](https://project-3-backend-fl7z.onrender.com)
+Frontend Application: [Deployed Frontend URL](https://beelie.netlify.app/)
+Frontend Repository: [Frontend Repository URL](https://github.com/RaghadHussain/project-3-frontend)
 
 ## Technologies Used
 
